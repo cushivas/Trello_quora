@@ -1,10 +1,10 @@
 package com.upgrad.quora.service.dao;
 
-import com.upgrad.quora.service.Entity.UserEntity;
+import com.upgrad.quora.service.entity.UserAuthEntity;
+import com.upgrad.quora.service.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
@@ -15,8 +15,12 @@ public class UserDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-
-    //The getUserByUsername() method is used to check if there  already exist a user with same email
+    /**
+     * The getUserByUsername() method is used to check email entered by user
+     *
+     * @param email which is saved by user in request model userEntity
+     * @return userEntity object if user email exist in database
+     */
     public UserEntity getUserByEmail(final String email) {
         try {
             return entityManager.createNamedQuery("userByEmail", UserEntity.class).setParameter("email", email).getSingleResult();
@@ -26,7 +30,13 @@ public class UserDao {
         }
     }
 
-    //The getUserByUsername() method is used to check if there  already exist a user with same username
+
+    /**
+     * The getUserByUsername() method is used to check username entered by user
+     *
+     * @param username added by user in request model userEntity
+     * @return userEntity object if username already exist in data base
+     */
     public UserEntity getUserByUsername(final String username) {
         try {
             return entityManager.createNamedQuery("userByUsername", UserEntity.class).setParameter("username", username).getSingleResult();
@@ -37,11 +47,14 @@ public class UserDao {
     }
 
 
-    //This method is used to register a user in data base by storing all the user information
+    /**
+     * This method is used to register a user in data base by storing all the user information
+     *
+     * @param userEntity object
+     * @return userEntity
+     */
     public UserEntity createUser(UserEntity userEntity) {
         entityManager.persist(userEntity);
         return userEntity;
     }
-
-
 }
