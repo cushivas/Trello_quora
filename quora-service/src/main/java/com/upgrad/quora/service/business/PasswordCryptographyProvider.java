@@ -27,7 +27,7 @@ public class PasswordCryptographyProvider {
      * @param password char array.
      * @return String array with [0] encoded salt [1] hashed password.
      */
-    public String[] encrypt(final String password) {
+    public static String[] encrypt(final String password) {
         byte[] salt = generateSaltBytes();
         byte[] hashedPassword = hashPassword(password.toCharArray(), salt);
         return new String[]{getBase64EncodedBytesAsString(salt), bytesToHex(hashedPassword)};
