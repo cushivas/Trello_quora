@@ -47,6 +47,19 @@ public class UserDao {
         }
     }
 
+    /**
+     *This method gets AuthToken from database
+     * @param accesstoken
+     * @return
+     */
+    public UserAuthTokenEntity getUserAuthToken(final String accesstoken) {
+        try {
+            return entityManager.createNamedQuery("userAuthTokenByAccessToken", UserAuthTokenEntity.class).setParameter("accessToken", accesstoken).getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+
 
     /**
      * This method is used to register a user in data base by storing all the user information
@@ -75,5 +88,9 @@ public class UserDao {
      */
     public void updateUser(final UserEntity updatedUserEntity) {
         entityManager.merge(updatedUserEntity);
+    }
+
+    public void deleteAuthToken(final UserAuthTokenEntity deleteAuthToken){
+        entityManager.remove(deleteAuthToken);
     }
 }
