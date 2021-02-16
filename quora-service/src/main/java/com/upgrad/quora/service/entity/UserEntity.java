@@ -50,9 +50,6 @@ public class UserEntity implements Serializable {
     @Size(max = 50)
     private String email;
 
-    //@Column(name = "LAST_LOGIN_AT")
-    //private ZonedDateTime lastLoginAt;
-
     @Column(name = "PASSWORD")
     @Size(max = 255)
     @NotNull
