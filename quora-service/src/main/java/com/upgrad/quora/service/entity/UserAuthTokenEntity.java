@@ -28,6 +28,7 @@ public class UserAuthTokenEntity implements Serializable {
     private UserEntity user;
 
     @Column(name = "UUID")
+    @NotNull
     @Size(max = 200)
     private String uuid;
 

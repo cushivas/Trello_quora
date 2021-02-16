@@ -4,13 +4,13 @@ import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
+import com.upgrad.quora.service.exception.SignOutRestrictedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Service
 public class AuthenticationService {
@@ -23,6 +23,7 @@ public class AuthenticationService {
 
     /**
      * Method to authenticate user signIn
+     *
      * @param username
      * @param password
      * @return
@@ -59,5 +60,27 @@ public class AuthenticationService {
         } else {
             throw new AuthenticationFailedException("ATH-002", "Password failed");
         }
+    }
+
+    /**
+     * Method to delete the authorization token
+     * @param authorizationToken
+     * @return
+     * @throws SignOutRestrictedException
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public String invalidateToken(final String authorizationToken) throws SignOutRestrictedException {
+        //Check if the user is not logged in
+        UserAuthTokenEntity userAuthTokenEntity = userDao.getUserAuthToken(authorizationToken);
+        if (userAuthTokenEntity == null) {
+            throw new SignOutRestrictedException("SGR-001", "User is not Signed in");
+        }
+        String uuid = userAuthTokenEntity.getUuid();
+        userAuthTokenEntity.setAccessToken(null);
+        final ZonedDateTime now = ZonedDateTime.now();
+        userAuthTokenEntity.setLogoutAt(now);
+        userDao.saveAuthToken(userAuthTokenEntity);
+        return uuid;
+
     }
 }

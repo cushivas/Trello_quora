@@ -1,6 +1,5 @@
 package com.upgrad.quora.service.dao;
 
-
 import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import org.springframework.stereotype.Repository;
@@ -31,7 +30,6 @@ public class UserDao {
         }
     }
 
-
     /**
      * The getUserByUsername() method is used to check username entered by user
      *
@@ -47,6 +45,18 @@ public class UserDao {
         }
     }
 
+    /**
+     *This method gets AuthToken from database
+     * @param accesstoken
+     * @return
+     */
+    public UserAuthTokenEntity getUserAuthToken(final String accesstoken) {
+        try {
+            return entityManager.createNamedQuery("userAuthTokenByAccessToken", UserAuthTokenEntity.class).setParameter("accessToken", accesstoken).getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
 
     /**
      * This method will retrieve the data using user's uuid
@@ -112,4 +122,15 @@ public class UserDao {
     public void updateUser(final UserEntity updatedUserEntity) {
         entityManager.merge(updatedUserEntity);
     }
+
+    /**
+     * This method is used to save the AuthToken
+     * @param userAuthTokenEntity
+     * @return
+     */
+    public UserAuthTokenEntity saveAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
+        entityManager.merge(userAuthTokenEntity);
+        return userAuthTokenEntity;
+    }
+
 }
