@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "users")
@@ -52,13 +53,11 @@ public class UserEntity implements Serializable {
     @Column(name = "PASSWORD")
     @Size(max = 255)
     @NotNull
-    @ToStringExclude
     private String password;
 
     @Column(name = "SALT")
     @Size(max = 200)
     @NotNull
-    @ToStringExclude
     private String salt;
 
     @Column(name = "COUNTRY")
@@ -84,6 +83,14 @@ public class UserEntity implements Serializable {
     @NotNull
     @Size(max = 30)
     private String contactNumber;
+
+   /** public ZonedDateTime getLastLoginAt() {
+        return lastLoginAt;
+    }
+
+    public void setLastLoginAt(ZonedDateTime lastLoginAt) {
+        this.lastLoginAt = lastLoginAt;
+    }**/
 
     public Integer getId() {
         return id;

@@ -1,6 +1,6 @@
 package com.upgrad.quora.service.dao;
 
-import com.upgrad.quora.service.entity.UserAuthEntity;
+import com.upgrad.quora.service.entity.UserAuthTokenEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +30,6 @@ public class UserDao {
         }
     }
 
-
     /**
      * The getUserByUsername() method is used to check username entered by user
      *
@@ -46,6 +45,18 @@ public class UserDao {
         }
     }
 
+    /**
+     *This method gets AuthToken from database
+     * @param accesstoken
+     * @return
+     */
+    public UserAuthTokenEntity getUserAuthToken(final String accesstoken) {
+        try {
+            return entityManager.createNamedQuery("userAuthTokenByAccessToken", UserAuthTokenEntity.class).setParameter("accessToken", accesstoken).getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
 
     /**
      * This method is used to register a user in data base by storing all the user information
@@ -57,4 +68,33 @@ public class UserDao {
         entityManager.persist(userEntity);
         return userEntity;
     }
+
+    /**
+     * This method is used to store authentication token in the Database
+     * @param userAuthTokenEntity
+     * @return
+     */
+    public UserAuthTokenEntity createAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
+        entityManager.persist(userAuthTokenEntity);
+        return userAuthTokenEntity;
+    }
+
+    /**
+     * This method is used to update the token in the database
+     * @param updatedUserEntity
+     */
+    public void updateUser(final UserEntity updatedUserEntity) {
+        entityManager.merge(updatedUserEntity);
+    }
+
+    /**
+     * This method is used to save the AuthToken
+     * @param userAuthTokenEntity
+     * @return
+     */
+    public UserAuthTokenEntity saveAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
+        entityManager.merge(userAuthTokenEntity);
+        return userAuthTokenEntity;
+    }
+
 }
