@@ -31,7 +31,6 @@ public class UserDao {
         }
     }
 
-
     /**
      * The getUserByUsername() method is used to check username entered by user
      *
@@ -59,7 +58,6 @@ public class UserDao {
             return null;
         }
     }
-
 
     /**
      * This method is used to register a user in data base by storing all the user information
@@ -90,7 +88,14 @@ public class UserDao {
         entityManager.merge(updatedUserEntity);
     }
 
-    public void deleteAuthToken(final UserAuthTokenEntity deleteAuthToken){
-        entityManager.remove(deleteAuthToken);
+    /**
+     * This method is used to save the AuthToken
+     * @param userAuthTokenEntity
+     * @return
+     */
+    public UserAuthTokenEntity saveAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
+        entityManager.merge(userAuthTokenEntity);
+        return userAuthTokenEntity;
     }
+
 }

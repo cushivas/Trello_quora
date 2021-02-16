@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
-import java.util.UUID;
 
 @Service
 public class AuthenticationService {
@@ -70,14 +69,17 @@ public class AuthenticationService {
      * @throws SignOutRestrictedException
      */
     @Transactional(propagation = Propagation.REQUIRED)
-    public String deleteToken(final String authorizationToken) throws SignOutRestrictedException {
+    public String invalidateToken(final String authorizationToken) throws SignOutRestrictedException {
         //Check if the user is not logged in
         UserAuthTokenEntity userAuthTokenEntity = userDao.getUserAuthToken(authorizationToken);
         if (userAuthTokenEntity == null) {
             throw new SignOutRestrictedException("SGR-001", "User is not Signed in");
         }
         String uuid = userAuthTokenEntity.getUuid();
-        userDao.deleteAuthToken(userAuthTokenEntity);
+        userAuthTokenEntity.setAccessToken(null);
+        final ZonedDateTime now = ZonedDateTime.now();
+        userAuthTokenEntity.setLogoutAt(now);
+        userDao.saveAuthToken(userAuthTokenEntity);
         return uuid;
 
     }
