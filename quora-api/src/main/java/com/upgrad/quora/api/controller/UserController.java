@@ -39,7 +39,7 @@ public class UserController {
      * @throws SignUpRestrictedException if there is violation of requirement
      */
     @RequestMapping(method = RequestMethod.POST, path = "/user/signup", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SignupUserResponse> userSignup(@RequestBody SignupUserRequest signupUserRequest) throws SignUpRestrictedException {
+    public ResponseEntity<SignupUserResponse> userSignup(SignupUserRequest signupUserRequest) throws SignUpRestrictedException {
 
         final UserEntity userEntity = new UserEntity();
 

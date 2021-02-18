@@ -59,6 +59,22 @@ public class UserDao {
     }
 
     /**
+     * This method will retrieve the data using user's uuid
+     *
+     * @param userUuid added by user n get request model entity
+     * @return userEntity object if the user uuid is valid else will return null
+     */
+    public UserEntity getUserByUuid(final String userUuid) {
+        try {
+            return entityManager.createNamedQuery("userByUuid", UserEntity.class).setParameter("uuid", userUuid).getSingleResult();
+        } catch (NoResultException nre) {
+            System.out.println(nre.getMessage());
+            return null;
+        }
+    }
+
+
+    /**
      * This method is used to register a user in data base by storing all the user information
      *
      * @param userEntity object
@@ -69,18 +85,38 @@ public class UserDao {
         return userEntity;
     }
 
+
     /**
      * This method is used to store authentication token in the Database
+     *
      * @param userAuthTokenEntity
-     * @return
+     * @return userAuthTokenEntity
      */
     public UserAuthTokenEntity createAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
         entityManager.persist(userAuthTokenEntity);
         return userAuthTokenEntity;
     }
 
+
+    /**
+     * This method will retrieve the data using accessToken
+     *
+     * @param accessToken added by user and get request model entity
+     * @return userEntity object if the user accessToken is valid else will return null
+     */
+    public UserAuthTokenEntity getUserByAccessToken(final String accessToken) {
+        try {
+            return entityManager.createNamedQuery("userAuthTokenByAccessToken", UserAuthTokenEntity.class).setParameter("accessToken", accessToken).getSingleResult();
+        } catch (NoResultException nre) {
+            System.out.println(nre.getMessage());
+            return null;
+        }
+    }
+
+
     /**
      * This method is used to update the token in the database
+     *
      * @param updatedUserEntity
      */
     public void updateUser(final UserEntity updatedUserEntity) {
