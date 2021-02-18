@@ -15,6 +15,17 @@ public class UserAdminService {
     @Autowired
     private UserDao userDao;
 
+
+    /**
+     *  Service class for user delete
+     * @param userId
+     * @param accessToken
+     * @return
+     * @throws UserNotFoundException
+     * @throws AuthorizationFailedException
+     * @auther Ashish Shivhare
+     */
+
     @Transactional(propagation = Propagation.REQUIRED)
     public String deleteUser(final String userId, final String accessToken) throws UserNotFoundException, AuthorizationFailedException {
 

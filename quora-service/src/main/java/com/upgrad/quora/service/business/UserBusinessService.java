@@ -20,6 +20,7 @@ public class UserBusinessService {
      * @param userEntity object of UserEntity class
      * @return userEntity object
      * @throws SignUpRestrictedException if validation requirement are not followed
+     * @auther Ashish Shivhare
      */
     @Transactional(propagation = Propagation.REQUIRED)
     public UserEntity signup(UserEntity userEntity) throws SignUpRestrictedException {

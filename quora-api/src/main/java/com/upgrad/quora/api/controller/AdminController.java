@@ -32,6 +32,7 @@ public class AdminController {
      * @return
      * @throws UserNotFoundException
      * @throws AuthorizationFailedException
+     * @auther Ashish Shivhare
      */
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/admin/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
