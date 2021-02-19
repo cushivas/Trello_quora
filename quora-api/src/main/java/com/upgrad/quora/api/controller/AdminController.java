@@ -19,7 +19,7 @@ import com.upgrad.quora.service.exception.*;
 /**
  *  Admin controller for all admin functionalities on user
  *  ex: user delete
- *  @auther Ashish Shivhare
+ *  @author Ashish Shivhare
  */
 public class AdminController {
 
@@ -33,7 +33,7 @@ public class AdminController {
      * @return
      * @throws UserNotFoundException
      * @throws AuthorizationFailedException
-     * @auther Ashish Shivhare
+     * @author Ashish Shivhare
      */
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/admin/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)

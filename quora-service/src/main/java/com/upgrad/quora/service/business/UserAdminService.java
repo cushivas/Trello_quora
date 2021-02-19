@@ -23,7 +23,7 @@ public class UserAdminService {
      * @return
      * @throws UserNotFoundException
      * @throws AuthorizationFailedException
-     * @auther Ashish Shivhare
+     * @author Ashish Shivhare
      */
 
     @Transactional(propagation = Propagation.REQUIRED)

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TransactionRequiredException;
 
 @Repository
 public class UserDao {
@@ -138,7 +137,7 @@ public class UserDao {
      * This Method deletes user by uuid
      * @param userUuid
      * @return boolean true if success otherwise false
-     * @auther Ashish Shivhare
+     * @author Ashish Shivhare
      */
     public String deleteUser(final String userUuid) {
         entityManager.createNamedQuery("deleteUserByUuid", UserEntity.class).setParameter("uuid", userUuid).executeUpdate();
