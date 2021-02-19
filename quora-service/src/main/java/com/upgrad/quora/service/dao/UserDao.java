@@ -133,4 +133,14 @@ public class UserDao {
         return userAuthTokenEntity;
     }
 
+    /**
+     * This Method deletes user by uuid
+     * @param userUuid
+     * @return boolean true if success otherwise false
+     * @author Ashish Shivhare
+     */
+    public String deleteUser(final String userUuid) {
+        entityManager.createNamedQuery("deleteUserByUuid", UserEntity.class).setParameter("uuid", userUuid).executeUpdate();
+        return userUuid;
+    }
 }
