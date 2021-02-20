@@ -87,22 +87,24 @@ public class UserEntity implements Serializable {
     @NotNull
     @Size(max = 30)
     private String contactNumber;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<QuestionEntity> questionList = new ArrayList();
 
-   /** public ZonedDateTime getLastLoginAt() {
+    public List<QuestionEntity> getQuestionList() {
+        return questionList;
+    }
+
+    public void setQuestionList(List<QuestionEntity> questionList) {
+        this.questionList = questionList;
+    }
+
+    /** public ZonedDateTime getLastLoginAt() {
         return lastLoginAt;
     }
 
     public void setLastLoginAt(ZonedDateTime lastLoginAt) {
         this.lastLoginAt = lastLoginAt;
     }**/
-
-   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-   private List<QuestionEntity> questionEntityList = new ArrayList<QuestionEntity>();
-
-    /**
-     * Getters and Setters methods to persist and fetch the data from the database
-     * @return
-     */
 
     public Integer getId() {
         return id;
@@ -206,14 +208,6 @@ public class UserEntity implements Serializable {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
-    }
-
-    public List<QuestionEntity> getQuestionEntityList() {
-        return questionEntityList;
-    }
-
-    public void setQuestionEntityList(List<QuestionEntity> questionEntityList) {
-        this.questionEntityList = questionEntityList;
     }
 
     @Override

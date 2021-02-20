@@ -1,58 +1,53 @@
 package com.upgrad.quora.service.entity;
 
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * @author swapnadeep.dutta
- */
 
 @Entity
-@Table(name = "answer")
+@Table(name = "ANSWER")
 
-/**
- * JPQL queries to fetch the data from database
- *
- */
+@NamedQueries({
+        @NamedQuery(name = "AnswerByUuid", query = "select a from AnswerEntity a where a.uuid = :uuid"),
 
-@NamedQueries({ @NamedQuery(name = "getAnswerByUUid", query = "select  u from AnswerEntity u where u.uuid =:uuid") })
+        @NamedQuery(name = "getAllAnswersByQuestionId", query = "select a from AnswerEntity a where a.question = :question")
+})
 public class AnswerEntity implements Serializable {
 
-    /**
-     * Default serial version
-     */
-
-    private static final long serialVersionUID = 1L;
-
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
-    @Column(name = "uuid")
+    @Column(name = "UUID")
     @Size(max = 200)
+    @NotNull
     private String uuid;
 
-    @Column(name = "answer")
+    @Column(name = "ANS")
     @Size(max = 255)
-    private String answer;
+    private String ans;
 
-    @Column(name = "date")
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private UserEntity user;
+
+    @Column(name = "DATE")
     private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
-    private QuestionEntity questionEntity;
+    private QuestionEntity question;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private UserEntity userEntity;
-
-    /**
-     * Getters and Setters to persist and fetch the data from database
-     */
 
     public Integer getId() {
         return id;
@@ -70,12 +65,20 @@ public class AnswerEntity implements Serializable {
         this.uuid = uuid;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getAns() {
+        return ans;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAns(String ans) {
+        this.ans = ans;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public LocalDateTime getDate() {
@@ -86,20 +89,26 @@ public class AnswerEntity implements Serializable {
         this.date = date;
     }
 
-    public QuestionEntity getQuestionEntity() {
-        return questionEntity;
+    public QuestionEntity getQuestion() {
+        return question;
     }
 
-    public void setQuestionEntity(QuestionEntity questionEntity) {
-        this.questionEntity = questionEntity;
+    public void setQuestion(QuestionEntity question) {
+        this.question = question;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    @Override
+    public boolean equals(Object obj) {
+        return new EqualsBuilder().append(this, obj).isEquals();
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this).hashCode();
     }
 
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }
