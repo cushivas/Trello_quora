@@ -7,6 +7,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -93,6 +95,14 @@ public class UserEntity implements Serializable {
     public void setLastLoginAt(ZonedDateTime lastLoginAt) {
         this.lastLoginAt = lastLoginAt;
     }**/
+
+   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   private List<QuestionEntity> questionEntityList = new ArrayList<QuestionEntity>();
+
+    /**
+     * Getters and Setters methods to persist and fetch the data from the database
+     * @return
+     */
 
     public Integer getId() {
         return id;
@@ -196,6 +206,14 @@ public class UserEntity implements Serializable {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    public List<QuestionEntity> getQuestionEntityList() {
+        return questionEntityList;
+    }
+
+    public void setQuestionEntityList(List<QuestionEntity> questionEntityList) {
+        this.questionEntityList = questionEntityList;
     }
 
     @Override
