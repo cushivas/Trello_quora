@@ -17,13 +17,12 @@ public class UserAdminService {
 
 
     /**
-     *  Service class for user delete
+     *  Service class for user delete if user is having admin role
      * @param userId
      * @param accessToken
      * @return
      * @throws UserNotFoundException
      * @throws AuthorizationFailedException
-     * @author Ashish Shivhare
      */
 
     @Transactional(propagation = Propagation.REQUIRED)

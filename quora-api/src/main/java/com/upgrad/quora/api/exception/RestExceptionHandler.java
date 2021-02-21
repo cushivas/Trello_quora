@@ -39,12 +39,11 @@ public class RestExceptionHandler {
 
     /**
      * This method handles the exception if the user is not signed-in
-     *
      * @param exe
      * @param request
      * @return
      */
-    @ExceptionHandler(SignOutRestrictedException.class)
+    @ExceptionHandler(SignOutRestrictedException .class)
     public ResponseEntity<ErrorResponse> signoutException(SignOutRestrictedException exe, WebRequest request) {
         return new ResponseEntity<ErrorResponse>(
                 new ErrorResponse().code(exe.getCode()).message(exe.getErrorMessage()), HttpStatus.UNAUTHORIZED
@@ -87,7 +86,7 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(AnswerNotFoundException.class)
-    public ResponseEntity<ErrorResponse> resourceNotFoundException(AnswerNotFoundException exe, WebRequest request) {
+    public ResponseEntity<ErrorResponse> AnswerNotFoundException(AnswerNotFoundException exe, WebRequest request) {
         return new ResponseEntity<ErrorResponse>(
                 new ErrorResponse().code(exe.getCode()).message(exe.getErrorMessage()), HttpStatus.NOT_FOUND
         );
