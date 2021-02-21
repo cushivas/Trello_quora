@@ -17,12 +17,12 @@ public class UserAdminService {
 
 
     /**
-     *  Service class for user delete if user is having admin role
-     * @param userId
-     * @param accessToken
-     * @return
-     * @throws UserNotFoundException
-     * @throws AuthorizationFailedException
+     * Service class for user delete if user is having admin role
+     *
+     * @param userId      the id of user which is to be deleted
+     * @param accessToken for  validation
+     * @throws UserNotFoundException  if user id not found
+     * @throws AuthorizationFailedException violation of validation
      */
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -34,6 +34,7 @@ public class UserAdminService {
         if (userAuthTokenEntity == null) {
             throw new AuthorizationFailedException("ATHR-001", "User has not signed in");
         }
+
         //Check if user has signOut
         if (userAuthTokenEntity.getLogoutAt() != null && userAuthTokenEntity.getLogoutAt().isAfter(userAuthTokenEntity.getLoginAt())) {
             throw new AuthorizationFailedException("ATHR-002", "User is signed out");
@@ -44,9 +45,10 @@ public class UserAdminService {
         if (userEntityByUuid == null) {
             throw new UserNotFoundException("USR-001", "User with entered uuid does not exist");
         }
+
         // Check if user has role other than admin..
         // if nonadmin throw exception and block the deletion..
-        if(userEntityByUuid.getRole().equals("nonadmin")) {
+        if (userEntityByUuid.getRole().equals("nonadmin")) {
             throw new AuthorizationFailedException("ATHR-003", "Unauthorized Access, Entered user is not an admin");
         }
 

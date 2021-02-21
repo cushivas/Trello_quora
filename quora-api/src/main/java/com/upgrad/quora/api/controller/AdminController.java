@@ -19,7 +19,7 @@ import com.upgrad.quora.service.exception.*;
 /**
  *  Admin controller for all admin functionalities on user
  *  ex: user delete
- *  @author Ashish Shivhare
+ *
  */
 public class AdminController {
 
@@ -27,17 +27,16 @@ public class AdminController {
     private UserAdminService userAdminService;
 
     /**
-     *  Delete User controller for deleting user by userUuid
+     * Delete User controller for deleting user by userUuid
+     *
      * @param userId
      * @param authorizationToken
-     * @return
      * @throws UserNotFoundException
      * @throws AuthorizationFailedException
-     * @author Ashish Shivhare
      */
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/admin/user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDeleteResponse> deleteUser(@PathVariable("userId") final String userId, @RequestHeader("authorization") final String authorizationToken)  throws UserNotFoundException, AuthorizationFailedException {
+    public ResponseEntity<UserDeleteResponse> deleteUser(@PathVariable("userId") final String userId, @RequestHeader("authorization") final String authorizationToken) throws UserNotFoundException, AuthorizationFailedException {
         final String deletedUserUuid = this.userAdminService.deleteUser(userId, authorizationToken);
         UserDeleteResponse userDeleteResponse = new UserDeleteResponse().id(deletedUserUuid).status("USER SUCCESSFULLY DELETED");
         HttpHeaders headers = new HttpHeaders();

@@ -36,17 +36,16 @@ public class UserBusinessService {
             throw new SignUpRestrictedException("SGR-002", "This user has already been registered, try with any other emailId");
         }
 
-        //Check if Password is null
+        //If the password is null set the default password
         String password = userEntity.getPassword();
-
         if (password == null) {
-            throw new SignUpRestrictedException("SGR-003", "Password cannot be null");
-        } else {
-            //Password and Salt are Encrypted
-            String[] encryptedText = PasswordCryptographyProvider.encrypt(userEntity.getPassword());
-            userEntity.setSalt(encryptedText[0]);
-            userEntity.setPassword(encryptedText[1]);
+            userEntity.setPassword("quora123");
         }
+        //Password and Salt are Encrypted
+        String[] encryptedText = PasswordCryptographyProvider.encrypt(userEntity.getPassword());
+        userEntity.setSalt(encryptedText[0]);
+        userEntity.setPassword(encryptedText[1]);
+
         return userDao.createUser(userEntity);
     }
 

@@ -23,6 +23,9 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/")
+/**
+ * API of User Service
+ */
 public class UserController {
 
     @Autowired
@@ -63,8 +66,8 @@ public class UserController {
 
     /**
      * Method to signIn the application
+     *
      * @param authorization
-     * @return
      * @throws AuthenticationFailedException
      */
     @RequestMapping(method = RequestMethod.POST, path = "/user/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -86,8 +89,8 @@ public class UserController {
 
     /**
      * Method to Sign out from the application
+     *
      * @param authorization
-     * @return
      * @throws SignOutRestrictedException
      */
     @RequestMapping(method = RequestMethod.POST, path = "/user/signout", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

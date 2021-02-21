@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
+/**
+ * API of Common Services
+ */
 public class CommonController {
 
     @Autowired

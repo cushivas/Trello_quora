@@ -13,12 +13,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/")
+/**
+ * API of Answer Services
+ */
 public class AnswerController {
 
     @Autowired
@@ -29,6 +33,7 @@ public class AnswerController {
 
     /**
      * Answer controller method for creating answer for a question
+     *
      * @param authorization
      * @param quesUuid
      * @param answerRequest
@@ -51,10 +56,11 @@ public class AnswerController {
 
     /**
      * Edit answer controller, to let user edit answer when have required access
+     *
      * @param authorization
      * @param ansUuid
      * @param answerRequest
-     * @return
+     * @return updated answerRsp entity
      * @throws AuthorizationFailedException
      * @throws AnswerNotFoundException
      */
@@ -73,7 +79,6 @@ public class AnswerController {
      *
      * @param answerUUid
      * @param authorizationToken
-     * @return
      * @throws AnswerNotFoundException
      * @throws AuthorizationFailedException
      */
@@ -88,10 +93,11 @@ public class AnswerController {
     }
 
     /**
-     *  Method to retrieve all the answers for a question by Id
+     * Method to retrieve all the answers for a question by Id
+     *
      * @param questionId
      * @param authorization
-     * @return
+     * @return List of all answer for a question using question id
      * @throws AuthorizationFailedException
      * @throws InvalidQuestionException
      */
@@ -101,8 +107,8 @@ public class AnswerController {
             throws AuthorizationFailedException, InvalidQuestionException {
 
         List<AnswerEntity> answerEntityList = answerService.getAllAnswersForQuestion(questionId, authorization);
-
-        List<AnswerDetailsResponse> answerDetailsResponseList = new LinkedList<>();//list is created to return.
+        //List is Created to store and retrieve all answer
+        List<AnswerDetailsResponse> answerDetailsResponseList = new LinkedList<>();
 
         for (AnswerEntity answerEntity : answerEntityList) {
             AnswerDetailsResponse answerDetailsResponse = new AnswerDetailsResponse().id(answerEntity.getUuid()).answerContent(answerEntity.getAns());
