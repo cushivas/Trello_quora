@@ -142,11 +142,11 @@ public class UserDao {
     /**
      * This Method deletes user by uuid
      *
-     * @param userUuid
-     * @return boolean true if success otherwise false
+     * @param userEntity
+     * @return uuid
      */
-    public String deleteUser(final String userUuid) {
-        entityManager.createNamedQuery("deleteUserByUuid", UserEntity.class).setParameter("uuid", userUuid).executeUpdate();
-        return userUuid;
+    public String deleteUser(UserEntity userEntity) {
+        entityManager.remove(userEntity);
+        return userEntity.getUuid();
     }
 }

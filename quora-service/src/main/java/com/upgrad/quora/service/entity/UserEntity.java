@@ -1,6 +1,8 @@
 package com.upgrad.quora.service.entity;
 
 import org.apache.commons.lang3.builder.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -87,7 +89,8 @@ public class UserEntity implements Serializable {
     @NotNull
     @Size(max = 30)
     private String contactNumber;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<QuestionEntity> questionList = new ArrayList();
 
     public List<QuestionEntity> getQuestionList() {

@@ -185,7 +185,7 @@ public class AnswerBusinessService {
         }
 
 
-        List<AnswerEntity> answerEntityList = answerDao.getAllAnswersForQuestionById(questionUuid);
+        List<AnswerEntity> answerEntityList = answerDao.getAllAnswersForQuestionById(questionEntity.getId());
         return answerEntityList;
 
     }
