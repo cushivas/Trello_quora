@@ -52,7 +52,7 @@ public class UserAdminService {
             throw new AuthorizationFailedException("ATHR-003", "Unauthorized Access, Entered user is not an admin");
         }
 
-        return userDao.deleteUser(userId);
+        return userDao.deleteUser(userEntityByUuid);
     }
 
 

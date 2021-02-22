@@ -111,7 +111,8 @@ public class AnswerController {
         List<AnswerDetailsResponse> answerDetailsResponseList = new LinkedList<>();
 
         for (AnswerEntity answerEntity : answerEntityList) {
-            AnswerDetailsResponse answerDetailsResponse = new AnswerDetailsResponse().id(answerEntity.getUuid()).answerContent(answerEntity.getAns());
+            AnswerDetailsResponse answerDetailsResponse = new AnswerDetailsResponse().id(answerEntity.getUuid()).answerContent(answerEntity.getAns())
+                    .questionContent(answerEntity.getQuestion().getContent());
             answerDetailsResponseList.add(answerDetailsResponse);
         }
         return new ResponseEntity<List<AnswerDetailsResponse>>(answerDetailsResponseList, HttpStatus.OK);

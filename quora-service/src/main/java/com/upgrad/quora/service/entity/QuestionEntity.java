@@ -1,20 +1,13 @@
 package com.upgrad.quora.service.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 
@@ -24,7 +17,7 @@ import javax.validation.constraints.Size;
 @NamedQueries(
         {
                 @NamedQuery(name = "getAllQuestions", query = "select u from QuestionEntity u"),
-                @NamedQuery(name = "getQuestByUuid", query = "select u from QuestionEntity u where u.uuid=:uuid")
+                @NamedQuery(name = "getQuestionByUuid", query = "select u from QuestionEntity u where u.uuid = :uuid")
         }
 )
 
@@ -50,8 +43,9 @@ public class QuestionEntity implements Serializable {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToOne(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private AnswerEntity answerList;
+    @OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<AnswerEntity> answerList = new ArrayList();
 
     public Integer getId() {
         return id;
@@ -73,7 +67,7 @@ public class QuestionEntity implements Serializable {
         return user;
     }
 
-    public AnswerEntity getAnswerList() {
+    public List<AnswerEntity> getAnswerList() {
         return answerList;
     }
 
@@ -97,7 +91,7 @@ public class QuestionEntity implements Serializable {
         this.user = user;
     }
 
-    public void setAnswerList(AnswerEntity answerList) {
+    public void setAnswerList(List<AnswerEntity> answerList) {
         this.answerList = answerList;
     }
 
