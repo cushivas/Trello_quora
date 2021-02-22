@@ -10,6 +10,10 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.ZonedDateTime;
 
+/**
+ * Service class for Authenticating user Request
+ */
+
 @Service
 public class AuthenticationService {
 
@@ -22,9 +26,9 @@ public class AuthenticationService {
     /**
      * Method to authenticate user signIn
      *
-     * @param username
-     * @param password
-     * @return
+     * @param username for login
+     * @param password for login
+     * @return userAuthTokenEntity
      * @throws AuthenticationFailedException
      */
     @Transactional(propagation = Propagation.REQUIRED)
@@ -62,8 +66,8 @@ public class AuthenticationService {
 
     /**
      * Method to delete the authorization token
-     * @param authorizationToken
-     * @return
+     * @param authorizationToken which is to be deleted
+     * @return uuid
      * @throws SignOutRestrictedException
      */
     @Transactional(propagation = Propagation.REQUIRED)

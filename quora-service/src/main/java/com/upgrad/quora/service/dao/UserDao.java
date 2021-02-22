@@ -8,6 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+/**
+ * Dao Implementation for User Endpoint
+ */
+
 @Repository
 public class UserDao {
 
@@ -46,7 +50,8 @@ public class UserDao {
     }
 
     /**
-     *This method gets AuthToken from database
+     * This method gets AuthToken from database
+     *
      * @param accesstoken
      * @return
      */
@@ -125,6 +130,7 @@ public class UserDao {
 
     /**
      * This method is used to save the AuthToken
+     *
      * @param userAuthTokenEntity
      * @return
      */
@@ -135,9 +141,9 @@ public class UserDao {
 
     /**
      * This Method deletes user by uuid
+     *
      * @param userUuid
      * @return boolean true if success otherwise false
-     *
      */
     public String deleteUser(final String userUuid) {
         entityManager.createNamedQuery("deleteUserByUuid", UserEntity.class).setParameter("uuid", userUuid).executeUpdate();

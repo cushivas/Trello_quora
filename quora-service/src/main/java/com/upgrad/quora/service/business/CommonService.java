@@ -17,9 +17,9 @@ public class CommonService {
     private UserDao userDao;
 
     /**
-     *
-     * @param userUuid
-     * @param accessToken
+     * Service implementation for get user endpoint
+     * @param userUuid for getting all details of user
+     * @param accessToken for validation
      * @return userEntityByUuid that is the details of user
      * @throws UserNotFoundException if user uuid is not found in database
      * @throws AuthorizationFailedException if authorization details are invalid
@@ -40,7 +40,7 @@ public class CommonService {
             throw new AuthorizationFailedException("ATHR-002", "User is signed out.Sign in first to get user details");
         }
 
-        //Check if uuid exist in database
+        //Check if uuid  exist in database
         UserEntity userEntityByUuid = userDao.getUserByUuid(userUuid);
         if (userEntityByUuid == null) {
             throw new UserNotFoundException("USR-001", "User with entered uuid does not exist");
