@@ -134,9 +134,9 @@ public class UserDao {
      * @param userAuthTokenEntity
      * @return
      */
-    public UserAuthTokenEntity saveAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
+    public void saveAuthToken(final UserAuthTokenEntity userAuthTokenEntity) {
         entityManager.merge(userAuthTokenEntity);
-        return userAuthTokenEntity;
+
     }
 
     /**
