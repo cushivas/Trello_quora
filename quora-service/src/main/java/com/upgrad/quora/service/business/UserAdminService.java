@@ -48,7 +48,7 @@ public class UserAdminService {
 
         // Check if user has role other than admin..
         // if nonadmin throw exception and block the deletion..
-        if (userEntityByUuid.getRole().equals("nonadmin")) {
+        if (userAuthTokenEntity.getUser().getRole().equals("nonadmin")) {
             throw new AuthorizationFailedException("ATHR-003", "Unauthorized Access, Entered user is not an admin");
         }
 
